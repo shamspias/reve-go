@@ -2,9 +2,10 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/shamspias/reve-go.svg)](https://pkg.go.dev/github.com/shamspias/reve-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/shamspias/reve-go)](https://goreportcard.com/report/github.com/shamspias/reve-go)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/shamspias/reve-go/LICENSE)
 
-An unofficial Go SDK for the [Reve Image Generation API](https://reve.com) - a powerful AI platform known for stunning aesthetics, accurate text rendering, and natural-language image edits.
+An unofficial Go SDK for the [Reve Image Generation API](https://reve.com) - a powerful AI platform known for stunning
+aesthetics, accurate text rendering, and natural-language image edits.
 
 ## Features
 
@@ -30,70 +31,26 @@ go get github.com/shamspias/reve-go
 package main
 
 import (
-    "context"
-    "log"
-    "os"
+	"context"
+	"log"
+	"os"
 
-    reve "github.com/shamspias/reve-go"
+	reve "github.com/shamspias/reve-go"
 )
 
 func main() {
-    client := reve.NewClient(os.Getenv("REVE_API_KEY"))
+	client := reve.NewClient(os.Getenv("REVE_API_KEY"))
 
-    result, err := client.Images.Create(context.Background(), &reve.CreateParams{
-        Prompt: "A beautiful mountain landscape at sunset",
-    })
-    if err != nil {
-        log.Fatal(err)
-    }
+	result, err := client.Images.Create(context.Background(), &reve.CreateParams{
+		Prompt: "A beautiful mountain landscape at sunset",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
 
-    result.SaveTo("landscape.png")
-    log.Printf("Saved! Credits used: %d", result.CreditsUsed)
+	result.SaveTo("landscape.png")
+	log.Printf("Saved! Credits used: %d", result.CreditsUsed)
 }
-```
-
-## Project Structure
-
-```
-reve-go/
-├── client.go           # Main client
-├── options.go          # Configuration options
-├── reve.go             # Re-exports for convenience
-├── doc.go              # Package documentation
-│
-├── types/              # Shared types
-│   ├── aspect.go       # AspectRatio type
-│   ├── version.go      # ModelVersion type
-│   ├── format.go       # OutputFormat type
-│   ├── postprocess.go  # Postprocess operations
-│   ├── image.go        # Image helper type
-│   └── result.go       # Result types
-│
-├── image/              # Image service
-│   ├── service.go      # Service definition
-│   ├── create.go       # Create operation
-│   ├── edit.go         # Edit operation
-│   ├── remix.go        # Remix operation
-│   ├── batch.go        # Batch operations
-│   └── cost.go         # Cost estimation
-│
-├── internal/           # Internal packages
-│   ├── transport/      # HTTP transport
-│   │   ├── client.go
-│   │   ├── retry.go
-│   │   └── errors.go
-│   └── validator/      # Validation
-│       └── validator.go
-│
-└── examples/           # Example applications
-    ├── basic/
-    ├── create/
-    ├── edit/
-    ├── remix/
-    ├── batch/
-    ├── proxy/
-    ├── error-handling/
-    └── complete/
 ```
 
 ## Documentation
@@ -106,9 +63,9 @@ client := reve.NewClient(apiKey)
 
 // With options
 client := reve.NewClient(apiKey,
-    reve.WithTimeout(60*time.Second),
-    reve.WithRetry(5, time.Second, 30*time.Second),
-    reve.WithDebug(true),
+reve.WithTimeout(60*time.Second),
+reve.WithRetry(5, time.Second, 30*time.Second),
+reve.WithDebug(true),
 )
 ```
 
@@ -117,17 +74,17 @@ client := reve.NewClient(apiKey,
 ```go
 // HTTP Proxy
 client := reve.NewClient(apiKey,
-    reve.WithHTTPProxy("http://proxy:8080"),
+reve.WithHTTPProxy("http://proxy:8080"),
 )
 
 // SOCKS5 Proxy
 client := reve.NewClient(apiKey,
-    reve.WithSOCKS5Proxy("127.0.0.1:1080", "user", "pass"),
+reve.WithSOCKS5Proxy("127.0.0.1:1080", "user", "pass"),
 )
 
 // Environment variables (HTTP_PROXY, HTTPS_PROXY)
 client := reve.NewClient(apiKey,
-    reve.WithProxyFromEnvironment(),
+reve.WithProxyFromEnvironment(),
 )
 ```
 
@@ -135,10 +92,10 @@ client := reve.NewClient(apiKey,
 
 ```go
 result, err := client.Images.Create(ctx, &reve.CreateParams{
-    Prompt:          "A cyberpunk cityscape",
-    AspectRatio:     reve.Ratio16x9,
-    TestTimeScaling: 2,
-    Postprocess:     []reve.Postprocess{reve.Upscale(2)},
+Prompt:          "A cyberpunk cityscape",
+AspectRatio:     reve.Ratio16x9,
+TestTimeScaling: 2,
+Postprocess:     []reve.Postprocess{reve.Upscale(2)},
 })
 ```
 
@@ -148,9 +105,9 @@ result, err := client.Images.Create(ctx, &reve.CreateParams{
 img, _ := reve.NewImageFromFile("photo.jpg")
 
 result, err := client.Images.Edit(ctx, &reve.EditParams{
-    Instruction:    "Convert to watercolor painting",
-    ReferenceImage: img.Base64(),
-    Version:        reve.VersionLatestFast, // 5 credits
+Instruction:    "Convert to watercolor painting",
+ReferenceImage: img.Base64(),
+Version:        reve.VersionLatestFast, // 5 credits
 })
 ```
 
@@ -161,8 +118,8 @@ style, _ := reve.NewImageFromFile("style.png")
 content, _ := reve.NewImageFromFile("content.png")
 
 result, err := client.Images.Remix(ctx, &reve.RemixParams{
-    Prompt: fmt.Sprintf("Apply %s to %s", reve.Ref(0), reve.Ref(1)),
-    ReferenceImages: []string{style.Base64(), content.Base64()},
+Prompt: fmt.Sprintf("Apply %s to %s", reve.Ref(0), reve.Ref(1)),
+ReferenceImages: []string{style.Base64(), content.Base64()},
 })
 ```
 
@@ -170,12 +127,12 @@ result, err := client.Images.Remix(ctx, &reve.RemixParams{
 
 ```go
 requests := []*reve.CreateParams{
-    {Prompt: "A red apple"},
-    {Prompt: "A green pear"},
+{Prompt: "A red apple"},
+{Prompt: "A green pear"},
 }
 
 results := client.Images.BatchCreate(ctx, requests, &reve.BatchConfig{
-    Concurrency: 3,
+Concurrency: 3,
 })
 
 fmt.Printf("Success: %d/%d\n", reve.SuccessCount(results), len(results))
@@ -186,16 +143,17 @@ fmt.Printf("Success: %d/%d\n", reve.SuccessCount(results), len(results))
 ```go
 result, err := client.Images.Create(ctx, params)
 if err != nil {
-    var apiErr *transport.APIError
-    if errors.As(err, &apiErr) {
-        if apiErr.IsRateLimit() {
-            // Wait and retry
-        }
-        if apiErr.IsInsufficientFunds() {
-            // Need more credits
-        }
-    }
+var apiErr *transport.APIError
+if errors.As(err, &apiErr) {
+if apiErr.IsRateLimit() {
+// Wait and retry
 }
+if apiErr.IsInsufficientFunds() {
+// Need more credits
+}
+}
+}
+
 ```
 
 ### Cost Estimation
@@ -225,13 +183,13 @@ REVE_API_KEY=your-key go run examples/complete/main.go
 
 ## Pricing
 
-| Endpoint | Credits | ~USD |
-|----------|---------|------|
-| Create | 18 | $0.024 |
-| Edit | 30 | $0.040 |
-| Edit Fast | 5 | $0.007 |
-| Remix | 30 | $0.040 |
-| Remix Fast | 5 | $0.007 |
+| Endpoint   | Credits | ~USD   |
+|------------|---------|--------|
+| Create     | 18      | $0.024 |
+| Edit       | 30      | $0.040 |
+| Edit Fast  | 5       | $0.007 |
+| Remix      | 30      | $0.040 |
+| Remix Fast | 5       | $0.007 |
 
 ## Contributing
 
