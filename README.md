@@ -2,7 +2,7 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/shamspias/reve-go.svg)](https://pkg.go.dev/github.com/shamspias/reve-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/shamspias/reve-go)](https://goreportcard.com/report/github.com/shamspias/reve-go)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/shamspias/reve-go/LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/shamspias/reve-go/blob/main/LICENSE)
 
 An unofficial Go SDK for the [Reve Image Generation API](https://reve.com) - a powerful AI platform known for stunning
 aesthetics, accurate text rendering, and natural-language image edits.
